@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Menu;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -14,7 +16,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        /**
+         * Aqui pasamo la informacion de la tabla de Menu para mostrar el menu en nuestra homepage
+         */
+        $data=Menu::all();
+        return view('home', compact("data"));
     }
 
     /**
@@ -24,6 +30,7 @@ class HomeController extends Controller
     public function redirects()
     {
         $usertype = Auth::user()->usertype;
+        $data=Menu::all();
 
         //Condicion que valida que tipo de usuario esta conectado.
         if($usertype == '1')
@@ -33,7 +40,7 @@ class HomeController extends Controller
 
         else
         {
-            return view('home');
+            return view('home', compact("data"));
         }
     }
 

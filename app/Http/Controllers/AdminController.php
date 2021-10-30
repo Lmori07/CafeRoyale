@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Menu;
 
 use Illuminate\Http\Request;
 
@@ -24,6 +25,38 @@ class AdminController extends Controller
     {
         $usersdata = User::all();
         return view('admin.userlist', compact('usersdata'));
+    }
+
+    /**
+     * Muestra la lista de la tabla menu en la vista administrador.
+     */
+    public function menulist()
+    {
+        return view('admin.menulist');
+    }
+
+    /**
+     * Cargar a la tabla menu la informacion del menu desde la vista administrador.
+     */
+    public function uploadmenu(Request $request)
+    {
+        $data = new Menu;
+
+        $image=$request->image;
+        $imagename=time().'.'.$image->getClientOriginalExtension();
+       /* Aqui lo que se esta haciendo es moviendo la imagen que va para la BD a una carpeta publica para
+        *uso de la aplicacion 
+        */
+        $request->image->move('menuimage', $imagename);
+        $data->image=$imagename;
+
+        $data->title=$request->title;
+        $data->price=$request->price;
+        $data->description=$request->description;
+
+        $data->save();
+
+        return redirect()->back();
     }
 
     /**

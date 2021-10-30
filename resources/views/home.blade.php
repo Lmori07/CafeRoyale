@@ -108,9 +108,7 @@ https://templatemo.com/tm-558-klassy-cafe
                             </li>   
 
                         </ul>        
-                        <a class='menu-trigger'>
-                            <span>Menu</span>
-                        </a>
+                        
                         <!-- ***** Menu End ***** -->
                     </nav>
                 </div>

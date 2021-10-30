@@ -23,6 +23,10 @@ Route::get("/users",[AdminController::class, 'userlist']);
 
 Route::get("/deleteuser/{id}",[AdminController::class, 'destroy']);
 
+Route::get("/foodmenu",[AdminController::class, 'menulist']);
+
+Route::post("/uploadmenu",[AdminController::class, 'uploadmenu']);
+
 Route::get("/redirects",[HomeController::class, 'redirects']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
