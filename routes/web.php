@@ -23,6 +23,10 @@ Route::post("/reservation",[AdminController::class, 'createreservation']);
 
 Route::get("/viewreservation",[AdminController::class, 'reservationlist']);
 
+Route::get("/viewchef",[AdminController::class, 'viewchef']);
+
+Route::post("/savechef",[AdminController::class, 'createchef']);
+
 Route::get("/users",[AdminController::class, 'userlist']);
 
 Route::get("/deleteuser/{id}",[AdminController::class, 'destroy']);

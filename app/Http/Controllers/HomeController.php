@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Menu;
 use App\Models\User;
+use App\Models\Chef;
 
 class HomeController extends Controller
 {
@@ -20,7 +21,8 @@ class HomeController extends Controller
          * Aqui pasamo la informacion de la tabla de Menu para mostrar el menu en nuestra homepage
          */
         $data=Menu::all();
-        return view('home', compact("data"));
+        $chefdata=Chef::all();
+        return view('home', compact("data","chefdata"));
     }
 
     /**
@@ -31,6 +33,7 @@ class HomeController extends Controller
     {
         $usertype = Auth::user()->usertype;
         $data=Menu::all();
+        $chefdata=Chef::all();
 
         //Condicion que valida que tipo de usuario esta conectado.
         if($usertype == '1')
@@ -40,7 +43,7 @@ class HomeController extends Controller
 
         else
         {
-            return view('home', compact("data"));
+            return view('home', compact("data","chefdata"));
         }
     }
 

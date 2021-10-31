@@ -40,12 +40,14 @@
             <span class="menu-title">Reservation</span>
           </a>
         </li>
+
+        <!-- Vista de los Chefs para los Admin -->
         <li class="nav-item menu-items">
-          <a class="nav-link" href="pages/icons/mdi.html">
+          <a class="nav-link" href="{{ url('viewchef') }}">
             <span class="menu-icon">
               <i class="mdi mdi-chart-bar"></i>
             </span>
-            <span class="menu-title">Charts</span>
+            <span class="menu-title">Chefs</span>
           </a>
         </li>
         <li class="nav-item menu-items">
