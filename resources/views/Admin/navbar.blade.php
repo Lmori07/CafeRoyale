@@ -10,6 +10,8 @@
         <li class="nav-item nav-category">
           <span class="nav-link">Navigation</span>
         </li>
+
+        <!-- Vista de los User para los Admin -->
         <li class="nav-item menu-items">
           <a class="nav-link" href="{{ url('/users') }}">
             <span class="menu-icon">
@@ -18,6 +20,8 @@
             <span class="menu-title">User</span>
           </a>
         </li>
+
+        <!-- Vista de Menu para los Admin -->
         <li class="nav-item menu-items">
           <a class="nav-link" href="{{ url('/foodmenu') }}">
             <span class="menu-icon">
@@ -26,8 +30,10 @@
             <span class="menu-title">Menu</span>
           </a>
         </li>
+
+        <!-- Vista de las Reservaciones para los Admin -->
         <li class="nav-item menu-items">
-          <a class="nav-link" href="pages/tables/basic-table.html">
+          <a class="nav-link" href="{{ url('/viewreservation') }}">
             <span class="menu-icon">
               <i class="mdi mdi-table-large"></i>
             </span>
@@ -35,7 +41,7 @@
           </a>
         </li>
         <li class="nav-item menu-items">
-          <a class="nav-link" href="pages/charts/chartjs.html">
+          <a class="nav-link" href="pages/icons/mdi.html">
             <span class="menu-icon">
               <i class="mdi mdi-chart-bar"></i>
             </span>

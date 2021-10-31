@@ -27,21 +27,24 @@
     @include("Admin.navbar")
      
     <div style="position: relative; top: 60px; right: -150px ">
-        <table bgcolor="grey" border="3px">
+      <table class="min-w-full divide-y divide-gray-200 w-full">
+        <thead>
             <tr>
-                <th style="padding: 30px">Name</th>
-                <th style="padding: 30px">Email</th>
-                <th style="padding: 30px">Action</th>
+              <th scope="col" width="50" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
+              <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+              <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
             </tr>
-<!-- Aqui vamos a manejar el arreglo que va a recorrer la tabla y todos sus usuarios mostrando los datos -->
-            @foreach ($usersdata as $userdata )
+         </thead>
+         <tbody class="bg-white divide-y divide-gray-200">
+          <!-- Aqui vamos a manejar el arreglo que va a recorrer la tabla y todos sus usuarios mostrando los datos -->
+           @foreach ($usersdata as $userdata )
             <tr align="center">
-                <td>{{ $userdata->name}}</td>
-                <td>{{ $userdata->email}}</td>
-                <td><a href="{{ url('/deleteuser',$userdata->id) }}">Delete</a></td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $userdata->name}}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $userdata->email}}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><a href="{{ url('/deleteuser',$userdata->id) }}">Delete</a></td>
             </tr> 
-            @endforeach
-            
+           @endforeach
+          </tbody>
         </table>
     </div>
 

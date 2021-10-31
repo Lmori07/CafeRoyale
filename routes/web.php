@@ -19,6 +19,10 @@ use App\Http\Controllers\AdminController;
 /*Rutas manejandas por la aplicacion */
 Route::get("/",[HomeController::class, 'index']);
 
+Route::post("/reservation",[AdminController::class, 'createreservation']);
+
+Route::get("/viewreservation",[AdminController::class, 'reservationlist']);
+
 Route::get("/users",[AdminController::class, 'userlist']);
 
 Route::get("/deleteuser/{id}",[AdminController::class, 'destroy']);
@@ -26,6 +30,12 @@ Route::get("/deleteuser/{id}",[AdminController::class, 'destroy']);
 Route::get("/foodmenu",[AdminController::class, 'menulist']);
 
 Route::post("/uploadmenu",[AdminController::class, 'uploadmenu']);
+
+Route::get("/deletemenu/{id}",[AdminController::class, 'destroymenu']);
+
+Route::get("/updatemenu/{id}",[AdminController::class, 'updatemenu']);
+
+Route::post("/postupdatemenu/{id}",[AdminController::class, 'postupdatemenu']);
 
 Route::get("/redirects",[HomeController::class, 'redirects']);
 

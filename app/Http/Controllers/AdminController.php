@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Menu;
-
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -32,7 +32,8 @@ class AdminController extends Controller
      */
     public function menulist()
     {
-        return view('admin.menulist');
+        $data = Menu::all();
+        return view('admin.menulist', compact("data"));
     }
 
     /**
@@ -103,6 +104,46 @@ class AdminController extends Controller
     }
 
     /**
+     * Muestra la vista para actualizar la informacion de menu.
+     * Nota la variable que esta en compact es la que se debe usuar para llenar en la vista
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updatemenu($id)
+    {
+        $menudata=Menu::find($id);
+        return view('admin.updatemenu', compact("menudata"));
+    }
+
+    /**
+     * Ejecuta el post para enviar la informacion capturada y actualizar la tabla.
+     * Nota la variable que esta en compact es la que se debe usuar para llenar en la vista
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function postupdatemenu(Request $request,$id)
+    {
+        $data=Menu::find($id);
+        $image=$request->image;
+        $imagename=time().'.'.$image->getClientOriginalExtension();
+       /* Aqui lo que se esta haciendo es moviendo la imagen que va para la BD a una carpeta publica para
+        *uso de la aplicacion 
+        */
+        $request->image->move('menuimage', $imagename);
+        $data->image=$imagename;
+
+        $data->title=$request->title;
+        $data->price=$request->price;
+        $data->description=$request->description;
+
+        $data->save();
+
+        return redirect()->back();
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -115,7 +156,7 @@ class AdminController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Aqui elimino un usuario de la tabla user.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -126,5 +167,56 @@ class AdminController extends Controller
         //dd($usersdata);
         $usersdata->delete();
         return redirect()->back();
+    }
+
+    /**
+     * Aqui elimino un elemento de la tabla menu.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroymenu($id)
+    {
+        $menudata=Menu::find($id);
+        //dd($menudata);
+        $menudata->delete();
+        return redirect()->back();
+    }
+
+    /**
+     * Aqui envia un post con la informacion de la reservacion la base de datos.
+     * Nota la variable que esta en compact es la que se debe usuar para llenar en la vista
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function createreservation(Request $request)
+    {
+        $reservationdata = new Reservation;
+
+        $reservationdata->name=$request->name;
+        $reservationdata->email=$request->email;
+        $reservationdata->phone=$request->phone;
+        $reservationdata->guest=$request->guest;
+        $reservationdata->date=$request->date;
+        $reservationdata->time=$request->time;
+        $reservationdata->message=$request->message;
+
+        $reservationdata->save();
+
+        return redirect()->back();
+    }
+
+    /**
+     * Aqui manejaremos la lista de reservaciones en la vista de admin.
+     * Nota la variable que esta en compact es la que se debe usuar para llenar en la vista
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function reservationlist(Request $request)
+    {
+        $data = Reservation::all();
+        return view('admin.adminreservation', compact("data"));
     }
 }
