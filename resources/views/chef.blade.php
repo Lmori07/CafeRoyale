@@ -10,9 +10,8 @@
             </div>
         </div>
         
-        @foreach ($chefdata as $chefdata )
-            
         <div class="row">
+            @foreach ($chefdata as $chefdata )
             <div class="col-lg-4">
                 <div class="chef-item">
                     <div class="thumb">
@@ -22,7 +21,7 @@
                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                             <li><a href="#"><i class="fa fa-instagram"></i></a></li>
                         </ul>
-                        <img src="chefimage/{{$chefdata->image}}" alt="Chef #1">
+                        <img height="200" width="200" src="chefimage/{{$chefdata->image}}" alt="Chef #1">
                     </div>
                     <div class="down-content">
                         <h4>{{$chefdata->name}}</h4>

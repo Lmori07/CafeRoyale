@@ -230,7 +230,8 @@ class AdminController extends Controller
      */
     public function viewchef()
     {
-        return view('admin.adminchef');
+        $chefdata= Chef::all();
+        return view('admin.adminchef',compact("chefdata"));
     }
 
     /**
@@ -254,5 +255,14 @@ class AdminController extends Controller
         $data->save();
 
         return redirect()->back();
+    }
+
+    /**
+     * Cargar a la tabla de chef la informacion actualziada de los chef desde la vista administrador.
+     */
+    public function updatechefview($id)
+    {
+        $chefdata=Chef::find($id);
+        return view('admin.updatechefview', compact("chefdata"));
     }
 }

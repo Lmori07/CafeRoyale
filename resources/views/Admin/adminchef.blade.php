@@ -45,6 +45,36 @@
 
         </div>
     </form>
+
+    <!-- Aqui vamos a crear una tabla para manejar la inforamcion de los chefs -->
+<div>
+    <div style="position: relative; top: 250px; right: 150px ">
+        <table class="min-w-full divide-y divide-gray-200 w-full">
+          <thead>
+              <tr>
+                <th scope="col" width="50" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Chefs Name</th>
+                <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Specialty</th>
+                <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
+                <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+              </tr>
+           </thead>
+           <tbody class="bg-white divide-y divide-gray-200">
+            <!-- Aqui vamos a manejar el arreglo que va a recorrer la tabla y todos sus usuarios mostrando los datos -->
+             @foreach ($data as $data )
+              <tr align="center">
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $chefdata->name}}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $chefdata->specialty}}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><img height="100" width="100" src="/chefimage/{{ $chefdata->image}}"></td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><a href="{{ url('/updatechef',$chefdata->id) }}">Update</a></td>
+              </tr> 
+             @endforeach
+            </tbody>
+          </table>
+      </div>
+
+
+</div>
+
 </div>
 
 <!-- Aqui se maneja los scrip que utilzia el CSS para las vistas de Admin -->
