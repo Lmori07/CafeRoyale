@@ -21,13 +21,19 @@ Route::get("/",[HomeController::class, 'index']);
 
 Route::post("/reservation",[AdminController::class, 'createreservation']);
 
-Route::get("/viewreservation",[AdminController::class, 'reservationlist']);
+Route::get("/viewreservation",[AdminController::class, 'reservationlist'])->name('reservationlist');
+
+Route::post("/reservationstatus/{id}",[AdminController::class, 'reservationstatus']);
 
 Route::get("/viewchef",[AdminController::class, 'viewchef']);
 
 Route::post("/savechef",[AdminController::class, 'createchef']);
 
 Route::get("/updatechefview/{id}",[AdminController::class, 'updatechefview']);
+
+Route::post("/updatedatachef/{id}",[AdminController::class, 'updatedatachef']);
+
+Route::get("/deletechef/{id}",[AdminController::class, 'destroychef']);
 
 Route::get("/users",[AdminController::class, 'userlist']);
 

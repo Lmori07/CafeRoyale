@@ -31,6 +31,7 @@
                 <div class="contact-form">
                     <form id="contact" action="{{ url('reservation') }}" method="post">
 
+        <!-- ***** Aqui es donde comienza el formulario para las reservaciones ***** -->             
         <!-- ***** Este comando nos permite enviar informacion a la base de datos ***** -->
                         @csrf
 

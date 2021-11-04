@@ -202,6 +202,7 @@ class AdminController extends Controller
         $reservationdata->date=$request->date;
         $reservationdata->time=$request->time;
         $reservationdata->message=$request->message;
+        $reservationdata->status = false;
 
         $reservationdata->save();
 
@@ -219,6 +220,24 @@ class AdminController extends Controller
     {
         $data = Reservation::all();
         return view('admin.adminreservation', compact("data"));
+    }
+
+    /**
+     * Aqui manejaremos el estado de las  reservaciones en la vista de admin.
+     * Nota la variable que esta en compact es la que se debe usuar para llenar en la vista
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function reservationstatus($id)
+    {
+        //dd('hola');
+        $data = Reservation::find($id);
+        $data->status = true;
+        
+        $data->save();
+        return redirect()->route('reservationlist');
+        //return view('admin.adminreservation', compact("data"));
     }
 
     /**
@@ -264,5 +283,49 @@ class AdminController extends Controller
     {
         $chefdata=Chef::find($id);
         return view('admin.updatechefview', compact("chefdata"));
+    }
+
+    /**
+     * Envia a la tabla de chef la informacion actualziada de los chef desde la vista administrador.
+     */
+    public function updatedatachef(Request $request, $id)
+    {
+        $chefdata=Chef::find($id);
+        $image=$request->image;
+        
+        /*
+         *Aqui verificamos si hay un imagen para cargar y pueda ejecutar la captura del archivo.
+         */
+        if($image)
+        {
+            $imagename=time().'.'.$image->getClientOriginalExtension();
+       /* Aqui lo que se esta haciendo es moviendo la imagen que va para la BD a una carpeta publica para
+        *uso de la aplicacion 
+        */
+        $request->image->move('chefimage', $imagename);
+        $chefdata->image=$imagename;
+        }
+        
+        
+        $chefdata->name=$request->name;
+        //dd($chefdata);
+        $chefdata->specialty=$request->specialty;
+
+        $chefdata->save();
+        return redirect()->back();
+    }
+
+    /**
+     * Aqui elimino un elemento de la tabla menu.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroychef($id)
+    {
+        $chefdata=Chef::find($id);
+        //dd($chefdata);
+        $chefdata->delete();
+        return redirect()->back();
     }
 }
