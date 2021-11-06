@@ -26,26 +26,64 @@
     <!-- Para manejar las rutas y navegar por side menu vamos a incluir el view que contiene esa inforamcion -->
     @include("Admin.navbar")
      
-    <div style="position: relative; top: 60px; right: -150px ">
-      <table class="min-w-full divide-y divide-gray-200 w-full">
-        <thead>
+    <div>
+      <style>
+        .user-table
+        {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            min-width: 400px;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15)
+        }
+        .user-table thead tr
+        {
+            background-color: #219a00;
+            color:#ffffff;
+            text-align: left;
+            font-weight: bold;
+        }
+        .user-table th,
+        .user-table td 
+        {
+            padding: 12px 15px;
+        }
+        .user-table tbody tr
+        {
+            border-bottom: 1px solid #dddddd;
+        }
+        .user-table tbody tr:nth-of-type(even)
+        {
+            background-color: #219a00;
+        }
+        .user-table tbody tr:last-of-type
+        {
+            border-bottom: 2px solid #219a00;
+        }
+    </style>
+
+      <table class="user-table">
+         <thead>
             <tr>
-              <th scope="col" width="50" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-              <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-              <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Action</th>
             </tr>
          </thead>
-         <tbody class="bg-white divide-y divide-gray-200">
-          <!-- Aqui vamos a manejar el arreglo que va a recorrer la tabla y todos sus usuarios mostrando los datos -->
+
+         <tbody>
+           <!-- Aqui vamos a manejar el arreglo que va a recorrer la tabla y todos sus usuarios mostrando los datos -->
            @foreach ($usersdata as $userdata )
             <tr align="center">
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $userdata->name}}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $userdata->email}}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><a href="{{ url('/deleteuser',$userdata->id) }}">Delete</a></td>
+              <td>{{ $userdata->name}}</td>
+              <td>{{ $userdata->email}}</td>
+              <td><a href="{{ url('/deleteuser',$userdata->id) }}">Delete</a></td>
             </tr> 
            @endforeach
           </tbody>
-        </table>
+      </table>
     </div>
 
     <!-- Aqui se maneja los scrip que utilzia el CSS para las vistas de Admin -->

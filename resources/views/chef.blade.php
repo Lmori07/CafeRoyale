@@ -21,7 +21,7 @@
                             <li><a href="#"><i class="fa fa-twitter"></i></a></li>
                             <li><a href="#"><i class="fa fa-instagram"></i></a></li>
                         </ul>
-                        <img height="200" width="200" src="chefimage/{{$chefdata->image}}" alt="Chef #1">
+                        <img padding="10px" src="chefimage/{{$chefdata->image}}" alt="Chef #1">
                     </div>
                     <div class="down-content">
                         <h4>{{$chefdata->name}}</h4>
@@ -29,7 +29,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div><br>
 
         @endforeach
 

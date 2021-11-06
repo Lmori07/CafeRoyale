@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Menu;
 use App\Models\User;
 use App\Models\Chef;
+use App\Models\Cart;
 
 class HomeController extends Controller
 {
@@ -43,8 +44,78 @@ class HomeController extends Controller
 
         else
         {
-            return view('home', compact("data","chefdata"));
+            $user_id=Auth::id();
+
+    //Aqui se cuenta en tabla cart cuantas veces aparece el id del usuario para saber cuantos items tiene.
+            $count= Cart::where('user_id',$user_id)->count();
+            //dd($count);
+            return view('home', compact("data","chefdata",'count'));
         }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addcart(Request $request, $id)
+    {
+        /**
+         * Aqui manejamos la funcion addcart para los usuario
+         */
+        
+         if(Auth::id())
+         {
+            $user_id=Auth::id();
+            //dd($user_id);
+
+            $food_id=$id; 
+
+            $quantity=$request->quantity;
+
+            $cart = new Cart;
+            $cart->user_id=$user_id;
+            $cart->food_id= $food_id;
+            $cart->quantity=$quantity;
+            $cart->save();
+
+            return redirect()->back();
+         }
+
+         else
+         {
+             return redirect('/login');
+         }
+    }
+
+    /**
+     * Muestra los elementos dentro de cart.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showcart(Request $request, $id)
+    {
+        $count=Cart::where('user_id',$id)->count();
+
+        $data2=cart::select('*')->where('user_id', '=', $id)->get();
+
+        $data=Cart::where('user_id',$id)->join('Menus','carts.food_id','=', 'Menus.id')->get();
+
+        return view('showcart', compact('count','data','data2'));
+        
+    }
+
+    /**
+     * Muestra los elementos dentro de cart.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroycartelement($id)
+    {
+        $cartdata=cart::find($id);
+        //dd($cartdata);
+        $cartdata->delete();
+        return redirect()->back();
     }
 
     /**

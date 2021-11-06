@@ -49,6 +49,12 @@ Route::get("/updatemenu/{id}",[AdminController::class, 'updatemenu']);
 
 Route::post("/postupdatemenu/{id}",[AdminController::class, 'postupdatemenu']);
 
+Route::post("/addcart/{id}",[HomeController::class, 'addcart']);
+
+Route::get("/showcart/{id}",[HomeController::class, 'showcart']);
+
+Route::get("/destroycartelement/{id}",[HomeController::class, 'destroycartelement']);
+
 Route::get("/redirects",[HomeController::class, 'redirects']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {

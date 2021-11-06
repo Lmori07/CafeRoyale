@@ -6,20 +6,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    
+    <link rel="stylesheet" type="text/css" href="public/form/form.css">
 <!-- Aqui manejamos el CSS de las vistas de Admin -->
 @include("Admin.admincss")
 
   </head>
   <body>
-    
+  <script src="public/form/form.js"></script>  
 <!-- Para manejar las rutas y navegar por side menu vamos a incluir el view que contiene esa inforamcion -->
 @include("Admin.navbar")
  
 <div style="position: relative; top: 60px; right: -150px">
 
-    <form action="{{ url('/savechef') }}" method="post" enctype="multipart/form-data">
-
+  <form action="{{ url('/savechef') }}" method="post" enctype="multipart/form-data">
+      
         @csrf
 
         <div>
@@ -48,26 +48,62 @@
 
     <!-- Aqui vamos a crear una tabla para manejar la inforamcion de los chefs -->
 <div>
-    <div style="position: relative; top: 150px; right: 150px ">
-        <table class="min-w-full divide-y divide-gray-200 w-full">
+    <div>
+      <style>
+        .chef-table
+        {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            min-width: 400px;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15)
+        }
+        .chef-table thead tr
+        {
+            background-color:#D80000;
+            color:#ffffff;
+            text-align: left;
+            font-weight: bold;
+        }
+        .chef-table th,
+        .chef-table td 
+        {
+            padding: 12px 15px;
+        }
+        .chef-table tbody tr
+        {
+            border-bottom: 1px solid #dddddd;
+        }
+        .chef-table tbody tr:nth-of-type(even)
+        {
+            background-color: #969696;
+        }
+        .chef-table tbody tr:last-of-type
+        {
+            border-bottom: 2px solid #D80000;
+        }
+    </style>
+        <table class="chef-table">
           <thead>
               <tr>
-                <th scope="col" width="50" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Chefs Name</th>
-                <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Specialty</th>
-                <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
-                <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-                <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action2</th>
+                <th>Chefs Name</th>
+                <th>Specialty</th>
+                <th>Image</th>
+                <th>Action</th>
+                <th>Action2</th>
               </tr>
            </thead>
-           <tbody class="bg-white divide-y divide-gray-200">
+           <tbody>
             <!-- Aqui vamos a manejar el arreglo que va a recorrer la tabla y todos sus usuarios mostrando los datos -->
              @foreach ($chefdata as $chefdata )
-              <tr align="center">
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $chefdata->name}}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $chefdata->specialty}}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><img height="100" width="100" src="/chefimage/{{ $chefdata->image}}"></td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><a href="{{ url('/updatechefview',$chefdata->id) }}">Update</a></td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><a href="{{ url('/deletechef',$chefdata->id) }}">Delete</a></td>
+              <tr>
+                <td>{{ $chefdata->name}}</td>
+                <td>{{ $chefdata->specialty}}</td>
+                <td><img height="100" width="100" src="/chefimage/{{ $chefdata->image}}"></td>
+                <td><a href="{{ url('/updatechefview',$chefdata->id) }}">Update</a></td>
+                <td><a href="{{ url('/deletechef',$chefdata->id) }}">Delete</a></td>
               </tr> 
              @endforeach
             </tbody>

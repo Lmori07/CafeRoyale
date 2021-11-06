@@ -54,28 +54,64 @@
 
 <!-- Aqui vamos a crear una tabla para manejar la inforamcion de menu -->
 <div>
-    <div style="position: relative; top: 250px; right: 150px ">
-        <table class="min-w-full divide-y divide-gray-200 w-full">
+    <div>
+      <style>
+        .menu-table
+        {
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9em;
+            min-width: 400px;
+            border-radius: 5px 5px 0 0;
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15)
+        }
+        .menu-table thead tr
+        {
+            background-color:#7f0093;
+            color:#ffffff;
+            text-align: left;
+            font-weight: bold;
+        }
+        .menu-table th,
+        .menu-table td 
+        {
+            padding: 12px 15px;
+        }
+        .menu-table tbody tr
+        {
+            border-bottom: 1px solid #dddddd;
+        }
+        .menu-table tbody tr:nth-of-type(even)
+        {
+            background-color: #f3f3f3;
+        }
+        .menu-table tbody tr:last-of-type
+        {
+            border-bottom: 2px solid #7f0093;
+        }
+    </style>
+        <table class="menu-table">
           <thead>
               <tr>
-                <th scope="col" width="50" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Food Name</th>
-                <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
-                <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Description</th>
-                <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Image</th>
-                <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-                <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action2</th>
+                <th>Food Name</th>
+                <th>Price</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Action</th>
+                <th>Action2</th>
               </tr>
            </thead>
-           <tbody class="bg-white divide-y divide-gray-200">
-            <!-- Aqui vamos a manejar el arreglo que va a recorrer la tabla y todos sus usuarios mostrando los datos -->
+           <tbody>
+             <!-- Aqui vamos a manejar el arreglo que va a recorrer la tabla y todos sus usuarios mostrando los datos -->
              @foreach ($data as $data )
-              <tr align="center">
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $data->title}}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $data->price}}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $data->description}}</td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><img height="100" width="100" src="/menuimage/{{ $data->image}}"></td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><a href="{{ url('/deletemenu',$data->id) }}">Delete</a></td>
-                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><a href="{{ url('/updatemenu',$data->id) }}">Update</a></td>
+              <tr>
+                <td>{{ $data->title}}</td>
+                <td>{{ $data->price}}</td>
+                <td>{{ $data->description}}</td>
+                <td><img height="100" width="100" src="/menuimage/{{ $data->image}}"></td>
+                <td><a href="{{ url('/deletemenu',$data->id) }}">Delete</a></td>
+                <td><a href="{{ url('/updatemenu',$data->id) }}">Update</a></td>
               </tr> 
              @endforeach
             </tbody>

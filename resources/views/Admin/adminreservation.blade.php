@@ -16,34 +16,71 @@
 <!-- Para manejar las rutas y navegar por side menu vamos a incluir el view que contiene esa inforamcion -->
 @include("Admin.navbar")
  
-<div style="position: relative; top: 60px; right: -10px ">
-    <table class="min-w-full divide-y divide-gray-200 w-full">
+<div>
+  <style>
+    .reservation-table
+    {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        min-width: 400px;
+        border-radius: 5px 5px 0 0;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15)
+    }
+    .reservation-table thead tr
+    {
+        background-color:#FFDB58;
+        color:#ffffff;
+        text-align: left;
+        font-weight: bold;
+    }
+    .reservation-table th,
+    .reservation-table td 
+    {
+        padding: 12px 15px;
+    }
+    .reservation-table tbody tr
+    {
+        border-bottom: 1px solid #dddddd;
+    }
+    .reservation-table tbody tr:nth-of-type(even)
+    {
+        background-color: #f3f3f3;
+    }
+    .reservation-table tbody tr:last-of-type
+    {
+        border-bottom: 2px solid #FFDB58
+    }
+</style>
+
+    <table class="reservation-table">
       <thead>
           <tr>
-            <th scope="col" width="50" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-            <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-            <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
-            <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Guest</th>
-            <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
-            <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
-            <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Message</th>
-            <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-            <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created At</th>
-            <th scope="col" class="px-6 py-3 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"></th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Guest</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Message</th>
+            <th>Status</th>
+            <th>Created At</th>
+            <th></th>
           </tr>
        </thead>
-       <tbody class="bg-white divide-y divide-gray-200">
-<!-- Aqui vamos a manejar el arreglo que va a recorrer la tabla y mostrar todas las reservaciones, $data viene del controlador que maneja la vista -->
+       <tbody >
+          <!-- Aqui vamos a manejar el arreglo que va a recorrer la tabla y mostrar todas las reservaciones, $data viene del controlador que maneja la vista -->
          @foreach ($data as $data )
-          <tr align="center">
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $data->name}}</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $data->email}}</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $data->phone}}</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $data->guest}}</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $data->date}}</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $data->time}}</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $data->message}}</td>
-            <th class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+          <tr>
+            <td>{{ $data->name}}</td>
+            <td>{{ $data->email}}</td>
+            <td>{{ $data->phone}}</td>
+            <td>{{ $data->guest}}</td>
+            <td>{{ $data->date}}</td>
+            <td>{{ $data->time}}</td>
+            <td>{{ $data->message}}</td>
+            <th>
               @if($data->status == true) 
               
                 <span class="label label-info">Confirmed</span>
@@ -52,7 +89,7 @@
               <span class="label label-info">Not Confirmed</span>
               @endif
             </th>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $data->created_at }}</td>
+            <td>{{ $data->created_at }}</td>
             <td>
               @if ($data->status == false)
                 <form id="status-form-{{$data->id }}" action="{{ url('/reservationstatus', $data->id) }}"method="post" enctype="multipart/form-data">
