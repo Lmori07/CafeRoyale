@@ -8,6 +8,7 @@ use App\Models\Menu;
 use App\Models\User;
 use App\Models\Chef;
 use App\Models\Cart;
+use App\Models\Order;
 
 class HomeController extends Controller
 {
@@ -21,7 +22,15 @@ class HomeController extends Controller
         /**
          * Aqui pasamo la informacion de la tabla de Menu para mostrar el menu en nuestra homepage
          */
-        $data=Menu::all();
+        
+        if(Auth::id())
+        {
+            return redirect('redirects');
+        }
+
+        else
+        
+         $data=Menu::all();
         $chefdata=Chef::all();
         return view('home', compact("data","chefdata"));
     }
@@ -95,6 +104,9 @@ class HomeController extends Controller
      */
     public function showcart(Request $request, $id)
     {
+        
+        if(Auth::id()==$id)
+        {
         $count=Cart::where('user_id',$id)->count();
 
         $data2=cart::select('*')->where('user_id', '=', $id)->get();
@@ -102,7 +114,11 @@ class HomeController extends Controller
         $data=Cart::where('user_id',$id)->join('Menus','carts.food_id','=', 'Menus.id')->get();
 
         return view('showcart', compact('count','data','data2'));
-        
+        }
+        else
+        {
+            return redirect()->back();
+        }
     }
 
     /**
@@ -182,5 +198,33 @@ class HomeController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Aqui guarda la data que esta en el carrito para ser manipulada por el adminitrador.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function orderconfirm(Request $request)
+    {
+        foreach ($request->foodname as $key=>$foodname)
+        {
+            $orderdata = new Order;
+
+            //Data viene de la BD con los items del cliente
+            $orderdata->foodname = $foodname;
+            $orderdata->price = $request->price[$key];
+            $orderdata->quantity = $request->quantity[$key];
+
+            //Informacion del cliente
+            $orderdata->name=$request->name;
+            $orderdata->phone=$request->phone;
+            $orderdata->address=$request->address;
+
+            $orderdata->save();
+        }
+
+        return redirect()->back();
     }
 }

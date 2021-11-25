@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
@@ -17,6 +18,8 @@ use App\Http\Controllers\AdminController;
 
 
 /*Rutas manejandas por la aplicacion */
+
+
 Route::get("/",[HomeController::class, 'index']);
 
 Route::post("/reservation",[AdminController::class, 'createreservation']);
@@ -56,6 +59,12 @@ Route::get("/showcart/{id}",[HomeController::class, 'showcart']);
 Route::get("/destroycartelement/{id}",[HomeController::class, 'destroycartelement']);
 
 Route::get("/redirects",[HomeController::class, 'redirects']);
+
+Route::post("/orderconfirm",[HomeController::class, 'orderconfirm']);
+
+Route::get("/orders",[AdminController::class, 'orders']);
+
+Route::get("/search",[AdminController::class, 'search']);
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard');

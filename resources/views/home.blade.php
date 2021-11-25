@@ -53,6 +53,12 @@ https://templatemo.com/tm-558-klassy-cafe
                         <!-- ***** Logo Start ***** -->
                         <a href="index.html" class="logo">
                             <img src="assets/images/klassy-logo.png" align="klassy cafe html template">
+                            
+                            <!-- ***** Aqui se maneja el menu cuando el browser es muy pequeño ***** -->
+                            <a class="menu-trigger">
+                                <span>Menu</span>
+                            </a>    
+
                         </a>
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->

@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\Menu;
 use App\Models\Reservation;
 use App\Models\Chef;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -327,5 +328,34 @@ class AdminController extends Controller
         //dd($chefdata);
         $chefdata->delete();
         return redirect()->back();
+    }
+
+    /**
+     * Aqui podra visualizar las ordenes de los cliente en el panel de admin.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function orders()
+    {
+        $orderdata=Order::all();
+        return view('admin.orders',compact("orderdata"));
+        
+    }
+
+    /**
+     * Esta es la opcion de buscar.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function search(Request $request)
+    {
+        $search = $request->search;
+
+        $orderdata=Order:: where('phone','Like','%'.$search.'%')->get();
+        //dd($orderdata);
+        return view('admin.orders',compact("orderdata"));
+        
     }
 }
